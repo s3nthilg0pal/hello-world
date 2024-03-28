@@ -29,14 +29,14 @@ steps:
     npm run build
     jekyll build
   displayName: 'jekyll'
-# - task: Docker@0
-#   displayName: 'Run Jekyll'
-#   inputs:
-#     containerRegistryType: 'Container Registry'
-#     action: 'Run an image'
-#     imageName: 'jekyll/builder:latest'
-#     volumes: |
-#       $(build.sourcesDirectory):/srv/jekyll
-#       $(build.binariesDirectory):/srv/jekyll/_site
-#     containerCommand: 'jekyll build --future'
-#     detached: false
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    SourceFolder: '_site'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: site
