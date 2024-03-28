@@ -21,6 +21,4 @@ I want learn and write a lot like many great successful software engineers.
 I passed my AZ-400 Devops expert certification today. I am still miles ahead to be a devops expert but holding this cert
 will motivate to learn more.
 
-I am replacing my portfolio site with this awesome [Jekyll](https://jekyllrb.com/) site and also deploying this to Azure static website.
-
-Its already late at night. I am signing off.Good Night 😴
+I am replacing my portfolio site with this awesome [Jekyll](https://jekyllrb.com/) framework and also deploying this to Azure static website.
