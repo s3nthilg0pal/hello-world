@@ -26,7 +26,7 @@ steps:
 
 - script: |
     bundle install
-    npm build
+    npm run build
     jekyll build
   displayName: 'jekyll'
 # - task: Docker@0

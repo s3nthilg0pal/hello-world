@@ -5,3 +5,4 @@
 .bundle/
 vendor/
 node_modules/
+_site/
