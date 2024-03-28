@@ -19,7 +19,9 @@ jobs:
         with:
           submodules: true
           lfs: false
-      - name: 'Install npm pacakages'
+      - name: 'bundle'
+        run: bundle
+      - name: 'npm install'
         run: npm install
       - name: Build And Deploy
         id: builddeploy
@@ -33,6 +35,8 @@ jobs:
           app_location: "./" # App source code path
           api_location: "" # Api source code path - optional
           output_location: "_site" # Built app content directory - optional
+          skip_app_build: true
+          skip_api_build: true
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
