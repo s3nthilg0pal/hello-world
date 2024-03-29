@@ -10,14 +10,13 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  checkout: self
-  submodules: true
-  task: AzureStaticWebApp@0
-    inputs:
-      app_location: "./" # App source code path
-      api_location: "" # Api source code path 
-      output_location: "_site" # Built app content directory
-      azure_static_web_apps_api_token: $(deployment-token)
+
+- task: AzureStaticWebApp@0
+  inputs:
+    app_location: "./" # App source code path
+    api_location: "" # Api source code path 
+    output_location: "_site" # Built app content directory
+    azure_static_web_apps_api_token: $(deployment-token)
 
 # - task: UseRubyVersion@0
 #   inputs:
