@@ -11,32 +11,39 @@ pool:
 
 steps:
 
-- task: UseRubyVersion@0
+- task: AzureStaticWebApp@0
   inputs:
-    versionSpec: '>= 2.5'
+    app_location: "./" # App source code path
+    api_location: "" # Api source code path 
+    output_location: "_site" # Built app content directory
+    azure_static_web_apps_api_token: $(deployment-token)
 
-- task: UseNode@1
-  inputs:
-    version: '20.x'
+# - task: UseRubyVersion@0
+#   inputs:
+#     versionSpec: '>= 2.5'
 
-- script: |
-    gem install jekyll bundler
-    bundle install --retry=3 --jobs=4
-  displayName: 'bundle install'
+# - task: UseNode@1
+#   inputs:
+#     version: '20.x'
 
-- script: |
-    bundle install
-    npm run build
-    jekyll build
-  displayName: 'jekyll'
+# - script: |
+#     gem install jekyll bundler
+#     bundle install --retry=3 --jobs=4
+#   displayName: 'bundle install'
 
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
-  inputs:
-    SourceFolder: '_site'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+# - script: |
+#     bundle install
+#     npm run build
+#     jekyll build
+#   displayName: 'jekyll'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: site
+# - task: CopyFiles@2
+#   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+#   inputs:
+#     SourceFolder: '_site'
+#     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     artifactName: site

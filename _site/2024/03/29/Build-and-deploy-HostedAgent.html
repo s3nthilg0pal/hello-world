@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en-US" class="dark">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Build and Deploy azure static website using Azure pipeline</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+  </head>
+  <body>
+    <div class = "max-w-2xl mx-auto py-10 px-4">
+    <main>
+        <div class="prose dark:prose-invert">
+
+            <h1>Build and Deploy azure static website using Azure pipeline</h1>
+            <h2>That too using my hosted agent</h2>
+            <p>29 Mar 2024</p>
+            <hr class="my-4">
+            <h2 id="context">Context</h2>
+
+<p>When I created this website, I was using github actions to deploy the app to the azure static web app.
+Nothing wrong in that.
+All works good.</p>
+
+<p>But I have a good pc that is sitting idle doing nothing (I bought it to play games).
+So I want to utilise to do some work.</p>
+
+<p>I created a devops agent in it a couple of months ago to practice for my AZ-400 exam.</p>
+
+<h2 id="what-i-did">What I did?</h2>
+
+<p>I decided to use my agent to run my pipeline.</p>
+
+<p>Easy, right?</p>
+
+<h4 id="pipeline-yaml">Pipeline Yaml</h4>
+
+<p>Simple, create a yaml file <code class="language-plaintext highlighter-rouge">azure-pipelines.yml</code>.</p>
+
+<p>We are going to define our steps and tasks for our deployment.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- task: AzureStaticWebApp@0
+  inputs:
+    app_location: "./" # App source code path
+    api_location: "" # Api source code path 
+    output_location: "_site" # Built app content directory
+    azure_static_web_apps_api_token: $(deployment-token)
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">AzureStaticWebApp</code> lets us to build and deploy the app. So we dont have to do extra steps such as downloading ruby, jekyll and deploying.</p>
+
+<p>All we need to cofigure the app location and output location in out case is <code class="language-plaintext highlighter-rouge">_site</code> becaue its a jekyll project.</p>
+
+<p>Oh I forgot, we need to get <strong>deployment-token</strong> from azure.
+<img src="/assets/images/deployment-token.png" alt="Deployment token" /></p>
+
+<p><em>Commit the file to the github repo</em></p>
+
+<h4 id="azure-devops">Azure devops</h4>
+
+<p>After creating pipeline, we need to the intall this app from Github marketplace <a href="https://github.com/marketplace/azure-pipelines">Azure pipelines</a></p>
+
+<p>For creating the actual pipeline, you need to have Azure devops organisations and a project. You can configure it when you install the github app.</p>
+
+<p>Add the token the pipeline variable</p>
+
+<p><img src="/assets/images/pipeline-variable.png" alt="Pipeline variable" /></p>
+
+<p>Save and run the pipeline.</p>
+
+<p>If everything is good, you should see the deployment went through sucessfully.</p>
+
+        </div>
+    </main>
+</div>
+  </body>
+</html>
