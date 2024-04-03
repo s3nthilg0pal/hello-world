@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-US" class="dark">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Sonarqube Azure Ad</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+  </head>
+  <body>
+    <div class = "max-w-2xl mx-auto py-10 px-4">
+    <main>
+        <div class="prose dark:prose-invert">
+
+            <h1>Sonarqube Azure Ad</h1>
+            <h2>Setting up Azure Ad for Sonarqube</h2>
+            <p>02 Apr 2023</p>
+            <hr class="my-4">
+            <p>In my work we use sonarqube as static code analysis tool that scans our codebase in PR branch and also master branch as a pipeline task.</p>
+
+<p>But if we want to login to sonar qube we have to use shared credentials whihc sucks.</p>
+
+<p>We use the username/password whihc is stored in 1pass.</p>
+
+<p>Sonarqube does have the feature to configure to use azure as SAML provider.</p>
+
+<p>So today I am going to trying to setup in my local machine and see how easy it is.</p>
+
+<h3 id="is-is-easy-to-setup-sonarqube-in-my-home">Is is easy to setup Sonarqube in my home??</h3>
+
+<p>yes by using docker.
+I am using the docker compose file to quickly spin up the containers and run the sonarqube.</p>
+
+<p>I had to run <code class="language-plaintext highlighter-rouge">sysctl -w vm.max_map_count=524288</code> before the docker compose command.
+Sonarqube needs atleast 262,144 memoery map areas.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>version: '3'
+
+services:
+
+  postgresql:
+    image: postgres:13
+    container_name: sonarqube-postgresql
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=admin123
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+
+  sonarqube:
+    image: sonarqube:9.3-community
+    container_name: sonarqube
+    depends_on:
+      - postgresql
+    network_mode: host
+    environment:
+      - SONARQUBE_JDBC_USERNAME=sonar
+      - SONARQUBE_JDBC_PASSWORD=admin123
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://localhost:5432/sonar
+    volumes:
+      - sonarqube-data:/opt/sonarqube/data
+      - sonarqube-logs:/opt/sonarqube/logs
+      - sonarqube-extensions:/opt/sonarqube/extensions
+
+volumes:
+  postgresql:
+  sonarqube-data:
+  sonarqube-logs:
+  sonarqube-extensions:
+</code></pre></div></div>
+
+<p>You should have sonarqube running without any issues. That took me 5 mins lol :)</p>
+
+<h4 id="azure-ad-setup">Azure AD setup</h4>
+
+<ol>
+  <li>Created an enterprise application in Azure ad</li>
+</ol>
+
+<p>Now we have to add SAML configuration</p>
+
+<p><img src="/assets/images/azure-ad-saml-config.png" alt="Azure AD SAML" /></p>
+
+<p>We have to user <code class="language-plaintext highlighter-rouge">https</code> for the repoly url. So I have to use ngork to expose locally running somarqube to internet.</p>
+
+<p>Now we have to copy values from azure to sonarqube.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sonarqube</th>
+      <th>Azure AD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Application id</td>
+      <td>Identifier</td>
+    </tr>
+    <tr>
+      <td>Provider ID</td>
+      <td>Microsoft Entra Identifier</td>
+    </tr>
+    <tr>
+      <td>SAML login url</td>
+      <td>Login URL</td>
+    </tr>
+    <tr>
+      <td>SAML user login attribute</td>
+      <td>Additional claim- mail</td>
+    </tr>
+    <tr>
+      <td>SAML user name attribute</td>
+      <td>Additional claim- name</td>
+    </tr>
+    <tr>
+      <td>Identity provider certificate</td>
+      <td>Certificate (Base64)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Now its almost ready to use Azure AD as SAML login.
+In general, set the server base url as the default sonarqube url whihc we used to set in the azure.</p>
+
+<p>We can test our config by the Test Configuration in the SAML screen and we should see the below result
+<img src="/assets/images/authtest.png" alt="SAML Config test" /></p>
+
+<p>Tada, now we can login using azure SSO</p>
+
+<p><img src="/assets/images/sso.png" alt="SSO" /></p>
+
+<p>Thats it for today, See ya!!</p>
+
+
+        </div>
+    </main>
+</div>
+  </body>
+</html>

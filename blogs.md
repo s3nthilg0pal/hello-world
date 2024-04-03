@@ -8,7 +8,13 @@ title: "Senthil's blogs"
     <main>
         <div class="prose dark:prose-invert">
             {% for post in site.posts %}
-                <article><a href="{{ post.url }}"><h2>{{ post.title }}</h2></a><p>{{ post.subtitle }}</p></article>
+                <article>
+                    <a href="{{ post.url }}">
+                        <h2>{{ post.title }}</h2>
+                    </a>
+                    <p>{{ post.subtitle }}</p>
+                    <time>{{ post.date | date_to_string  }}</time>
+                </article>
             {% endfor %}
         </div>
     </main>
