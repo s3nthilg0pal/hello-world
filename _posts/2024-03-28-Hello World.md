@@ -1,6 +1,8 @@
 ---
 layout: post
 subtitle: Re-launching millionth time
+title: Hello world
+date: 2024-03-28  
 ---
 ## Introduction
 I'm retrying my blog wrtting hobby again for millionth time.

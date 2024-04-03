@@ -1,6 +1,8 @@
 ---
 layout: post
 subtitle: Setting up Azure Ad for Sonarqube
+title: Sonarqube and Microsoft entra
+date: 2024-04-02
 ---
 
 In my work we use sonarqube as static code analysis tool that scans our codebase in PR branch and also master branch as a pipeline task.

@@ -2,6 +2,7 @@
 layout: post
 title: Build and Deploy azure static website using Azure pipeline
 subtitle: That too using my hosted agent
+date: 2024-03-29 
 ---
 
 ## Context
