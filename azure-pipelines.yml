@@ -11,4 +11,5 @@ steps:
     app_location: "./" # App source code path
     api_location: "" # Api source code path 
     output_location: "_site" # Built app content directory
+    config_file_location: ./
     azure_static_web_apps_api_token: $(deployment-token)
