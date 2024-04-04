@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-US" class="dark">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>OpenSSF Scorecard</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+  </head>
+  <body>
+    <div class = "max-w-2xl mx-auto py-10 px-4">
+    <main>
+        <div class="prose dark:prose-invert">
+
+            <h1>OpenSSF Scorecard</h1>
+            <h2>Setting up OpenSSF scorecard for my blog repo.</h2>
+            <p>04 Apr 2024</p>
+            <hr class="my-4">
+            <h4 id="what-is-openssf-scorecard">What is OpenSSF scorecard?</h4>
+
+<p>It is a scorecard that assess a project’s security risks by running automated checks.</p>
+
+<p>It is mainly used for open source projects.</p>
+
+<h4 id="scorecard">Scorecard</h4>
+
+<p><img src="/assets/images/openssfscorecard.png" alt="" /></p>
+
+<h4 id="levels-of-security-risks">Levels of security risks</h4>
+
+<ol>
+  <li>Low
+    <ul>
+      <li>CII-Best-Practices</li>
+      <li>Contributors</li>
+      <li>License</li>
+      <li>CI-Tests</li>
+    </ul>
+  </li>
+  <li>Medium
+    <ul>
+      <li>Fuzzing</li>
+      <li>SAST</li>
+      <li>Security policy</li>
+      <li>Pinned-Dependecies</li>
+      <li>Packaging</li>
+    </ul>
+  </li>
+  <li>High
+    <ul>
+      <li>Branch-Protection</li>
+      <li>Code-Review</li>
+      <li>Dependecy update tool</li>
+      <li>Maintined</li>
+      <li>Binary-Artifacts</li>
+      <li>Token-permissions</li>
+      <li>Vulnerabilities</li>
+      <li>Signed-Releases</li>
+    </ul>
+  </li>
+  <li>Critical
+    <ul>
+      <li>Dangerous workflow</li>
+    </ul>
+  </li>
+</ol>
+
+<p>These are the vaious risks that can be addressed to get good marks</p>
+
+<p>As seen in the picture, my score is pretty low <code class="language-plaintext highlighter-rouge">4.2</code> when I wrote this post.</p>
+
+<h4 id="how-to-implement">How to implement</h4>
+
+<p>This can be done in two ways</p>
+<ol>
+  <li>Github actions</li>
+  <li>CLI</li>
+</ol>
+
+<p>CLI option is for running locally.
+I have gone for github action. Its easy like adding the workflow directly from the <code class="language-plaintext highlighter-rouge">Actions</code> tab.</p>
+
+<p>Then adding the badge to the Readme.md to showcase your score</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/GSKSan/hello-world/badge)](https://securityscorecards.dev/viewer/?uri=github.com/GSKSan/hello-world/)
+</code></pre></div></div>
+
+<h4 id="conclusion">Conclusion</h4>
+<p>This is good way to know more about the securoty risks and also way to assese your repository.
+I will try address my repo’s security risks and improve my score :)</p>
+
+<p>see ya!</p>
+
+
+        </div>
+    </main>
+</div>
+  </body>
+</html>
