@@ -14,3 +14,4 @@ exclude:
   - tailwind.config.js
   - yarn.lock
   - azure-pipelines.yml
+  - staticwebapp.config.json
